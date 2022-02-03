@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Spinner?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="564.0" prefWidth="554.0" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.etlap.MenuController">
+<VBox alignment="CENTER" prefHeight="564.0" prefWidth="554.0" spacing="20.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.etlap.MenuController">
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
     </padding>
@@ -26,8 +18,8 @@
      <content>
        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="34.0" prefWidth="512.0">
             <children>
-               <Spinner fx:id="percentSpinner" layoutY="21.0" amountToStepBy="5" initialValue="5" min="5" max="50"/>
-               <Spinner fx:id="fixSpinner" layoutY="74.0" amountToStepBy="50" initialValue="1500" min="50" max="3000"/>
+               <Spinner fx:id="percentSpinner" amountToStepBy="5" initialValue="5" layoutY="21.0" max="50" min="5" />
+               <Spinner fx:id="fixSpinner" amountToStepBy="50" initialValue="1500" layoutY="74.0" max="3000" min="50" />
                <Label layoutX="163.0" layoutY="25.0" text="\%" />
                <Label layoutX="163.0" layoutY="78.0" text="Ft" />
                <Button layoutX="238.0" layoutY="21.0" mnemonicParsing="false" onAction="#onRaisePercent" text="Raise" />
@@ -36,12 +28,12 @@
          </AnchorPane>
      </content>
    </TitledPane>
-   <TableView fx:id="listTableView" prefHeight="200.0" prefWidth="200.0">
+   <TableView fx:id="listTableView" onMouseClicked="#onTableClick" prefHeight="200.0" prefWidth="200.0">
      <columns>
-       <TableColumn prefWidth="251.0" text="Name" />
-       <TableColumn prefWidth="145.0" text="Kategory" />
-       <TableColumn prefWidth="112.0" text="Price (Ft)" />
+       <TableColumn fx:id="nameTC" prefWidth="251.0" text="Name" />
+       <TableColumn fx:id="categoryTC" prefWidth="145.0" text="Kategory" />
+       <TableColumn fx:id="priceTC" prefWidth="112.0" text="Price (Ft)" />
      </columns>
    </TableView>
-   <TextArea fx:id="textArea" disable="true" prefHeight="110.0" prefWidth="514.0" />
+   <TextArea fx:id="detailTA" disable="true" prefHeight="110.0" prefWidth="514.0" />
 </VBox>
