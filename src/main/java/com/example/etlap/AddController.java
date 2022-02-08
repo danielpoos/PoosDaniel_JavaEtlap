@@ -60,7 +60,7 @@ public class AddController extends Controller{
             return;
         }
         try {
-            int successful = db.addEtel(name, detail, price, category);
+            int successful = db.addEtel(name, detail, price, category+1);
             if (successful == 1) alert("Successfully added");
             else alert("Unsuccessful attempt to add");
         }catch (SQLException e) {

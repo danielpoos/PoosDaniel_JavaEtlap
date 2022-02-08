@@ -7,9 +7,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 public class MenuController extends Controller{
     @FXML private TableColumn<Kategoria, String> catName;
+    @FXML private ComboBox<String> catChoiceBox;
     @FXML private Button addNew;
     @FXML private TabPane tab;
     @FXML private Spinner<Integer> percentSpinner;
@@ -30,8 +32,11 @@ public class MenuController extends Controller{
         catName.setCellValueFactory(new PropertyValueFactory<>("name"));
         try{
             db = new DB();
-
+            catChoiceBox.getItems().add("all");
             etlapFresh();
+            for (Kategoria k:cat) {
+                catChoiceBox.getItems().add(k.getName());
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -49,7 +54,10 @@ public class MenuController extends Controller{
         if (tab.getSelectionModel().getSelectedIndex() == 1){
             try {
                 CatController catController = (CatController) newWindow("cat-view.fxml", "Add new category", 300,100);
-                catController.stage.setOnCloseRequest(r->etlapFresh());
+                catController.stage.setOnCloseRequest(r->{
+                    etlapFresh();
+                    catChoiceBox.getItems().add(catController.getTextName().getText());
+                });
                 catController.getStage().show();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -148,6 +156,7 @@ public class MenuController extends Controller{
             cat = db.getKategoria();
             listTableView.getItems().clear();
             catTableView.getItems().clear();
+            catChoiceBox.getSelectionModel().select("all");
             for (Etel e:etlap) {
                 listTableView.getItems().add(e);
             }
@@ -165,5 +174,17 @@ public class MenuController extends Controller{
     public void onSelect() {
         if (tab.getSelectionModel().getSelectedIndex() == 0) addNew.setText("Add new dish");
         if (tab.getSelectionModel().getSelectedIndex() == 1) addNew.setText("Add new category");
+    }
+    public void onChoiceClick() {
+        String item = catChoiceBox.getSelectionModel().getSelectedItem();
+        listTableView.getItems().clear();
+        if (catChoiceBox.getSelectionModel().getSelectedItem().equals("all")) etlapFresh();
+        else {
+            for (Etel e: etlap) {
+                if(Objects.equals(item, e.getCategory())) {
+                    listTableView.getItems().add(e);
+                }
+            }
+        }
     }
 }

@@ -12,6 +12,10 @@ public class CatController extends Controller{
     private List<Kategoria> categories;
     public DB db;
 
+    public TextField getTextName() {
+        return textName;
+    }
+
     public void initialize() {
         try{
             db = new DB();

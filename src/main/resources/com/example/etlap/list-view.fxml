@@ -20,9 +20,9 @@
          <content>
            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                   <children>
-                     <TitledPane animated="false" prefHeight="155.0" prefWidth="514.0" text="Raise the price by">
+                     <TitledPane animated="false" prefHeight="155.0" prefWidth="305.0" text="Raise the price by">
                        <content>
-                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="105.0" prefWidth="513.0">
+                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="129.0" prefWidth="290.0">
                               <children>
                                  <Spinner fx:id="percentSpinner" amountToStepBy="5" initialValue="5" layoutX="7.0" layoutY="21.0" max="50" min="5" />
                                  <Spinner fx:id="fixSpinner" amountToStepBy="50" initialValue="1500" layoutX="7.0" layoutY="74.0" max="3000" min="50" />
@@ -42,6 +42,15 @@
                        </columns>
                      </TableView>
                      <TextArea fx:id="detailTA" disable="true" layoutY="370.0" prefHeight="95.0" prefWidth="514.0" />
+                     <TitledPane animated="false" layoutX="306.0" prefHeight="156.0" prefWidth="208.0" text="Filter category">
+                       <content>
+                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                              <children>
+                                 <ComboBox fx:id="catChoiceBox" layoutX="28.0" layoutY="52.0" onAction="#onChoiceClick" prefWidth="150.0" />
+                              </children>
+                           </AnchorPane>
+                       </content>
+                     </TitledPane>
                   </children></AnchorPane>
          </content>
        </Tab>
