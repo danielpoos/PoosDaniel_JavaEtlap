@@ -57,6 +57,7 @@ public abstract class Controller {
         FXMLLoader fxmlLoader = new FXMLLoader(MenuApplication.class.getResource(fxmlName));
         Scene scene = new Scene(fxmlLoader.load(), width, height);
         stage.setTitle(title);
+        stage.setResizable(false);
         stage.setScene(scene);
         Controller controller = fxmlLoader.getController();
         controller.stage = stage;
