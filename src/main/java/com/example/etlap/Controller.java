@@ -18,19 +18,6 @@ public abstract class Controller {
         return stage;
     }
 
-    protected void errorWrite(Exception e){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(e.getClass().toString());
-        alert.setContentText(e.getMessage());
-        Timer t = new Timer();
-        t.schedule(new TimerTask(){
-            @Override
-            public void run() {
-                Platform.runLater(alert::show);
-            }
-        }, 500);
-    }
     protected void alert(String message){
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setContentText(message);

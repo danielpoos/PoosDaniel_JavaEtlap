@@ -47,7 +47,13 @@ public class MenuController extends Controller{
             }
         }
         if (tab.getSelectionModel().getSelectedIndex() == 1){
-
+            try {
+                CatController catController = (CatController) newWindow("cat-view.fxml", "Add new category", 300,100);
+                catController.stage.setOnCloseRequest(r->etlapFresh());
+                catController.getStage().show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
     @FXML private void onDelete() {
@@ -66,6 +72,7 @@ public class MenuController extends Controller{
             } catch (Exception e) {
                 e.printStackTrace();
         }
+        }
         if (tab.getSelectionModel().getSelectedIndex() == 1) {
             int ind = catTableView.getSelectionModel().getSelectedIndex();
             if (ind == -1) {
@@ -73,7 +80,7 @@ public class MenuController extends Controller{
                 return;
             }
             Kategoria kategoria = catTableView.getSelectionModel().getSelectedItem();
-            if (!confirm(String.format("Are you sure you want to delete this category: %s?", etel.getName()))) return;
+            if (!confirm(String.format("Are you sure you want to delete this category: %s?", kategoria.getName()))) return;
             try {
                 if(db.deleteKategoria(kategoria.getId()))alert("Successful deletion");
                 else alert("Unsuccessful deletion");
@@ -83,16 +90,15 @@ public class MenuController extends Controller{
             }
         }
     }
-    }
     @FXML private void onRaisePercent() {
         int index = listTableView.getSelectionModel().getSelectedIndex();
         int percent = percentSpinner.getValue();
         if (index == -1) {
             if (!alertWait(String.format("Are you sure you want to raise all dishes by %d percent?",percent))) return;
             for (Etel e: etlap) {
-                e = listTableView.getSelectionModel().getSelectedItem();
                 raisePercent(percent, e);
             }
+            return;
         }
         if(alertWait(String.format("Are you sure you want to raise by %d percent?",percent))){
             Etel etel = listTableView.getSelectionModel().getSelectedItem();
@@ -116,9 +122,9 @@ public class MenuController extends Controller{
         if (index == -1) {
             if (!alertWait(String.format("Are you sure you want to raise all dishes by %d Ft?",fix))) return;
             for (Etel e: etlap) {
-                e = listTableView.getSelectionModel().getSelectedItem();
                 raiseFix(fix, e);
             }
+            return;
         }
         if(alertWait(String.format("Are you sure you want to raise by %d Ft?",fix))){
             Etel etel = listTableView.getSelectionModel().getSelectedItem();

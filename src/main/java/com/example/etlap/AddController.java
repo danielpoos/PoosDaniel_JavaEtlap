@@ -19,10 +19,9 @@ public class AddController extends Controller{
         try{
             db = new DB();
         }catch (Exception e){
-            errorWrite(e);
+            e.printStackTrace();
         }
     }
-
     @FXML public void addOnClick() {
         String name = textName.getText().trim();
         String detail = textDetail.getText().trim();
@@ -50,7 +49,7 @@ public class AddController extends Controller{
             if (successful == 1) alert("Successfully added");
             else alert("Unsuccessful attempt to add");
         }catch (SQLException e) {
-            errorWrite(e);
+            e.printStackTrace();
         }
     }
 }
