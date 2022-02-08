@@ -1,5 +1,7 @@
 package com.example.etlap;
 
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Spinner;
@@ -7,6 +9,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class AddController extends Controller{
     @FXML private ChoiceBox<Kategoria> choiceCategory;
@@ -14,10 +17,13 @@ public class AddController extends Controller{
     @FXML private TextArea textDetail;
     @FXML private TextField textName;
     private DB db;
+    private List<Kategoria> categories;
 
     public void initialize() {
         try{
             db = new DB();
+            categories = db.getKategoria();
+            choiceCategory.getItems().addAll(categories);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -27,9 +33,18 @@ public class AddController extends Controller{
         String detail = textDetail.getText().trim();
         int price = scrollPrice.getValue();
         int category = choiceCategory.getSelectionModel().getSelectedIndex();
-        if (textName.getText().isEmpty()) alert("You can't leave this field empty!");
-        else if (textDetail.getText().isEmpty()) alert("You can't leave this field empty!");
-        else if (choiceCategory == null) alert("You can't leave this field empty!");
+        if (textName.getText().isEmpty()) {
+            alert("You can't leave this field empty!");
+            return;
+        }
+        if (textDetail.getText().isEmpty()){
+            alert("You can't leave this field empty!");
+            return;
+        }
+        if (choiceCategory == null){
+            alert("You can't leave this field empty!");
+            return;
+        }
         try{
             price = scrollPrice.getValue();
         }catch (Exception e){
